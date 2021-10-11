@@ -1,9 +1,12 @@
 /* eslint-disable no-undef */
 // eslint-disable-next-line import/no-extraneous-dependencies
 
+import fleet from "../modules/fleet";
 import Ship from "../modules/ship";
 
-const testShip = new Ship("Battleship", 4);
+// testing both fleet and Ship
+// const testShip = new Ship("Battleship", 4);
+const testShip = fleet().Battleship();
 
 describe("Created Ships", () => {
   describe("properties", () => {
@@ -35,5 +38,19 @@ describe("Hit/Sunk functionality", () => {
     testShip.hit(3);
     testShip.isSunk();
     expect(testShip.isShipSunk).toBe(true);
+  });
+});
+
+describe("ship direction test", () => {
+  test("default vertical property", () => {
+    expect(testShip.direction).toBe("vertical");
+  });
+  test("changing direction to horizontal", () => {
+    testShip.changeDirection();
+    expect(testShip.direction).toBe("horizontal");
+  });
+  test("changing direction back to vertical", () => {
+    testShip.changeDirection();
+    expect(testShip.direction).toBe("vertical");
   });
 });
