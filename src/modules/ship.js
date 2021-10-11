@@ -1,9 +1,8 @@
-// import { fleet } from "./fleet";
-
 function Ship(shipName, size) {
   const name = shipName;
   const length = size;
   const isShipSunk = false;
+  const direction = "vertical";
 
   const hits = new Array(length).fill(null);
 
@@ -16,8 +15,24 @@ function Ship(shipName, size) {
       this.isShipSunk = true;
     }
   }
+  function changeDirection() {
+    if (this.direction === "vertical") {
+      this.direction = "horizontal";
+    } else if (this.direction === "horizontal") {
+      this.direction = "vertical";
+    }
+  }
 
-  return { name, length, hits, hit, isShipSunk, isSunk };
+  return {
+    name,
+    length,
+    hits,
+    hit,
+    isShipSunk,
+    isSunk,
+    direction,
+    changeDirection,
+  };
 }
 
 export default Ship;
