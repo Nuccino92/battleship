@@ -2,7 +2,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 
 import fleet from "../modules/fleet";
-import Ship from "../modules/ship";
+// import Ship from "../modules/ship";
 
 // testing both fleet and Ship
 // const testShip = new Ship("Battleship", 4);
