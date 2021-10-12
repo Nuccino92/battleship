@@ -11,7 +11,7 @@ function Ship(shipName, size) {
   }
 
   function isSunk() {
-    if (hits.every((val) => val === hits[0])) {
+    if (hits.every((val) => val === "hit")) {
       this.isShipSunk = true;
     }
   }
