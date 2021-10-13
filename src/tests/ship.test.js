@@ -25,18 +25,18 @@ describe("Hit/Sunk functionality", () => {
     expect(testShip.hits).toEqual([null, null, null, null]);
   });
   test("check working hit function", () => {
-    testShip.hit(1);
-    expect(testShip.hits).toEqual([null, "hit", null, null]);
+    testShip.hit();
+    testShip.hit();
+    expect(testShip.hits).toEqual([null, null, "hit", "hit"]);
   });
 
   test("working isShipSunk status", () => {
     expect(testShip.isShipSunk).toBe(false);
   });
   test("sink the ship", () => {
-    testShip.hit(0);
-    testShip.hit(2);
-    testShip.hit(3);
-    testShip.isSunk();
+    testShip.hit();
+    testShip.hit();
+    testShip.hit();
     expect(testShip.isShipSunk).toBe(true);
   });
 });
