@@ -6,15 +6,22 @@ function Ship(shipName, size) {
 
   const hits = new Array(length).fill(null);
 
-  function hit(pos) {
-    hits.splice(pos, 1, "hit");
-  }
+  function hit() {
+    hits.push("hit");
+    hits.shift();
 
-  function isSunk() {
     if (hits.every((val) => val === "hit")) {
       this.isShipSunk = true;
     }
   }
+
+  function isSunk() {
+    if (this.isShipSunk === true) {
+      return true;
+    }
+    return false;
+  }
+
   function changeDirection() {
     if (this.direction === "vertical") {
       this.direction = "horizontal";
