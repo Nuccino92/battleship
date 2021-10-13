@@ -5,6 +5,9 @@ import Gameboard from "../modules/gameboard";
 const testBoard = new Gameboard();
 const Battleship = fleet().Battleship();
 
+const Submarine = fleet().Submarine();
+Submarine.changeDirection();
+
 describe("Gameboard testing", () => {
   test("create board", () => {
     expect(testBoard.board).toEqual([
@@ -28,8 +31,6 @@ describe("Gameboard testing", () => {
     expect(testBoard.board[3][0].name).toBe("Battleship");
   });
   test("placing ship horizontally on board", () => {
-    const Submarine = fleet().Submarine();
-    Submarine.changeDirection();
     testBoard.placeShips(Submarine, 0, 5);
     expect(testBoard.board[0][5].name).toEqual("Submarine");
     expect(testBoard.board[0][6].name).toEqual("Submarine");
@@ -58,21 +59,23 @@ describe("Gameboard testing", () => {
     expect(testBoard.board[2][5]).toBe("miss");
   });
   test("hitting a ship", () => {
-    testBoard.recieveAttack(2, 0);
-    expect(testBoard.board[0][0].hits).toEqual([null, null, "hit", null]);
+    testBoard.recieveAttack(1, 0);
+    expect(testBoard.board[1][0].hits).toEqual([null, null, null, "hit"]);
   });
-  test("logging missed attacks", () => {
-    expect(testBoard.missedAttacks).toEqual([[2, 5]]);
+  test("logging attacks", () => {
+    expect(testBoard.attackLog).toEqual([
+      [2, 5],
+      [1, 0],
+    ]);
   });
   test("checking all ships sunk", () => {
     testBoard.recieveAttack(0, 0);
-    testBoard.recieveAttack(1, 0);
     testBoard.recieveAttack(2, 0);
     testBoard.recieveAttack(3, 0);
     testBoard.recieveAttack(0, 5);
     testBoard.recieveAttack(0, 6);
     testBoard.recieveAttack(0, 7);
-    testBoard.checkGameOver();
-    expect(testBoard.isGameOver).toBe(true);
+    expect(testBoard.checkGameOver()).toBe(true);
+    // expect(testBoard.placedShips[1].isShipSunk).toBe("true");
   });
 });
