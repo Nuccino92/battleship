@@ -2,8 +2,7 @@
 
 function Gameboard() {
   const placedShips = [];
-  const missedAttacks = [];
-  const isGameOver = false;
+  const attackLog = [];
 
   // 10x10 board
   const board = new Array(10).fill(null).map(() => Array(10).fill(null));
@@ -46,21 +45,22 @@ function Gameboard() {
   }
 
   function recieveAttack(x, y) {
+    attackLog.push([x, y]);
+
     if (board[x][y] != null) {
-      // board[x][y] is the ship, adds hit to the correct place in ships hits array
-      this.board[x][y].hit(x);
+      // board[x][y] is the ship, runs hit function on the ship
+      this.board[x][y].hit();
     }
     if (board[x][y] === null) {
       this.board[x][y] = "miss";
-      missedAttacks.push([x, y]);
     }
   }
 
   function checkGameOver() {
-    placedShips.every((ship) => ship.isSunk());
-    if (placedShips.every((ship) => ship.isShipSunk === true)) {
-      this.isGameOver = true;
+    if (placedShips.every((ship) => ship.isSunk())) {
+      return true;
     }
+    return false;
   }
 
   return {
@@ -68,8 +68,7 @@ function Gameboard() {
     placeShips,
     placedShips,
     recieveAttack,
-    missedAttacks,
-    isGameOver,
+    attackLog,
     checkGameOver,
   };
 }
