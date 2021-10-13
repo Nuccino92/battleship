@@ -45,13 +45,14 @@ function Gameboard() {
   }
 
   function recieveAttack(x, y) {
-    attackLog.push([x, y]);
-
     if (board[x][y] != null) {
+      attackLog.push({ hit: { x, y } });
       // board[x][y] is the ship, runs hit function on the ship
       this.board[x][y].hit();
+      this.board[x][y] = "hit";
     }
     if (board[x][y] === null) {
+      attackLog.push({ miss: { x, y } });
       this.board[x][y] = "miss";
     }
   }
