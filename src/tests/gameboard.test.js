@@ -60,12 +60,13 @@ describe("Gameboard testing", () => {
   });
   test("hitting a ship", () => {
     testBoard.recieveAttack(1, 0);
-    expect(testBoard.board[1][0].hits).toEqual([null, null, null, "hit"]);
+    expect(testBoard.board[1][0]).toEqual("hit");
+    expect(Battleship.hits).toEqual([null, null, null, "hit"]);
   });
   test("logging attacks", () => {
     expect(testBoard.attackLog).toEqual([
-      [2, 5],
-      [1, 0],
+      { miss: { x: 2, y: 5 } },
+      { hit: { x: 1, y: 0 } },
     ]);
   });
   test("checking all ships sunk", () => {
