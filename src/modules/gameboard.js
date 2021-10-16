@@ -6,6 +6,7 @@ function Gameboard() {
 
   // 10x10 board
   const board = new Array(10).fill(null).map(() => Array(10).fill(null));
+  const getBoard = () => board;
 
   function checkPossiblePlacement(ship, x, y) {
     // disallowing placements outside the board return false
@@ -71,6 +72,7 @@ function Gameboard() {
     recieveAttack,
     attackLog,
     checkGameOver,
+    getBoard,
   };
 }
 export default Gameboard;
