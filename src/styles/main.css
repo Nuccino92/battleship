@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Anton&display=swap");
+@import "./board.css";
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgb(42, 106, 165);
+}
+
+header {
+  padding-top: 40px;
+  text-align: center;
+  font-family: "Alfa Slab One", cursive;
+  font-size: 100px;
+  letter-spacing: 3px;
+  text-shadow: 1px 1px 0 #262626, 2px 2px 0 #262626, 3px 3px 0 #262626,
+    4px 4px 0 #262626, 5px 5px 0 #262626, 1px 1px 0 #262626,
+    6px 20px 20px rgba(0, 0, 0, 1), -1px -1px 0 rgb(141, 135, 135);
+  color: #f1f1f1;
+}
+
+.main {
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  gap: 5vw;
+  justify-content: space-evenly;
+}
