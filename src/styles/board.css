@@ -1,0 +1,30 @@
+.main > .player-board {
+  background-color: blue;
+  display: grid;
+  grid-template: repeat(10, 1fr) / repeat(10, 1fr);
+}
+
+.main > .computer-board {
+  background-color: red;
+  display: grid;
+  grid-template: repeat(10, 1fr) / repeat(10, 1fr);
+  box-sizing: content-box;
+  /* display: none; */
+}
+
+.main > .computer-board.active {
+  display: initial;
+}
+
+.grid-cell {
+  width: 3.1rem;
+  height: 3.1rem;
+  border: 1px solid black;
+}
+
+.setup-container {
+  width: 500px;
+  height: 500px;
+  border: 1px solid black;
+  display: none;
+}
