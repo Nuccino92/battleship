@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Anton&display=swap");
 @import "./board.css";
+@import "./ships.css";
 
 * {
   padding: 0;
