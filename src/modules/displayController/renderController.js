@@ -1,31 +1,30 @@
-import Gameboard from "../gameboard";
-import domElements from "./domElements";
-
 function renderController() {
-  function createCell(dom, x, y) {
+  function createCell(dom, x, y, type) {
     const cell = document.createElement("div");
     cell.classList.add("grid-cell");
-    cell.setAttribute("data", `x${x}-y${y}`);
+    cell.id = type;
+    cell.setAttribute("data-x", `${x}`);
+    cell.setAttribute("data-y", `${y}`);
 
     dom.append(cell);
   }
 
-  function renderBoard(dom, boardX) {
+  function renderBoard(dom, boardX, type) {
     const board = boardX.getBoard();
 
     board.forEach((x) => {
       board.forEach((y) => {
         const row = board.indexOf(x);
         const col = board.indexOf(y);
-        createCell(dom, row, col);
+        createCell(dom, row, col, type);
       });
     });
   }
 
-  function renderFleet() {
-    //render the fleet
+  function renderFleet(board) {
+    console.log(board);
   }
 
-  return { renderBoard };
+  return { renderBoard, renderFleet };
 }
 export default renderController;
