@@ -1,3 +1,8 @@
+import {
+  domElements,
+  toggleHorizontalClass,
+} from "./modules/displayController/domElements";
+
 import Game from "./modules/gameLoop";
 import "./styles/main.css";
 
@@ -18,3 +23,20 @@ grid.forEach((cell) =>
     { once: true }
   )
 );
+
+//rotate button event listener
+
+domElements.rotateButton.addEventListener("click", () => {
+  toggleHorizontalClass();
+  game.fleetChangeDirection();
+});
+
+function startGame() {
+  //starts game
+}
+function playAgain() {
+  //restarts the game
+}
+function restartGame() {
+  // restarts the match without setup
+}
