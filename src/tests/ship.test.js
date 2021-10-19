@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 // eslint-disable-next-line import/no-extraneous-dependencies
 
-import fleet from "../modules/fleet";
+import { fleet } from "../modules/fleet";
 // import Ship from "../modules/ship";
 
 // testing both fleet and Ship
