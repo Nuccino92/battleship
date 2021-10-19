@@ -1,5 +1,3 @@
-// import Ship from "./ship";
-
 function Gameboard() {
   const placedShips = [];
   const attackLog = [];
@@ -10,14 +8,18 @@ function Gameboard() {
 
   function checkPossiblePlacement(ship, x, y) {
     // disallowing placements outside the board return false
-    if (x < 0 || x > 9 || y < 0 || y > 9) return false;
+    if (x < 0 || x > 9 || y < 0 || y > 9) {
+      return false;
+    }
 
     // if ship doesn't fit inside the board return false
+    if (ship.direction === "horizontal") {
+      if (y + ship.length > 10) return false;
+    }
+
     if (ship.direction === "vertical") {
       if (x + ship.length > 10) return false;
     }
-    if (y + ship.length > 10) return false;
-
     return true;
   }
 
