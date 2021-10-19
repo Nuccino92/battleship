@@ -1,3 +1,5 @@
+import { domElements } from "./domElements";
+
 function renderController() {
   function createCell(dom, x, y, type) {
     const cell = document.createElement("div");
@@ -21,8 +23,24 @@ function renderController() {
     });
   }
 
-  function renderFleet(board) {
-    console.log(board);
+  function renderShip(ship) {
+    const container = document.createElement("div");
+    container.classList.add("ship", `${ship.name}-container`);
+    container.setAttribute("data-name", `${ship.name}`);
+    container.setAttribute("draggable", true);
+
+    let shipDiv = "";
+    for (let i = 0; i < ship.length; i += 1) {
+      shipDiv += `<div class="ship-cell" data-index='${i}'></div>`;
+    }
+    container.insertAdjacentHTML("afterbegin", shipDiv);
+    domElements.shipSetupContainer.append(container);
+  }
+
+  function renderFleet(ships) {
+    ships.forEach((ship) => {
+      renderShip(ship);
+    });
   }
 
   return { renderBoard, renderFleet };
