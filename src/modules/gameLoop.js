@@ -1,32 +1,20 @@
 import { domElements } from "./displayController/domElements";
+import { ships } from "./fleet";
 import renderController from "./displayController/renderController";
-import fleet from "./fleet";
 import Gameboard from "./gameboard";
 import Player from "./player";
+import Drag from "./displayController/drag";
 
 function Game() {
+  const fleet = ships;
+
   const player = Player("human");
   const computer = Player("computer");
 
   const playerBoard = new Gameboard();
   const computerBoard = new Gameboard();
 
-  const cpuBattleship = fleet().Battleship();
-  const playerBattleship = fleet().Battleship();
-  cpuBattleship.changeDirection();
-
-  playerBoard.placeShips(playerBattleship, 0, 0);
-  computerBoard.placeShips(cpuBattleship, 0, 0);
-
-  function startGame() {
-    //starts game
-  }
-  function playAgain() {
-    //restarts the game
-  }
-  function restartGame() {
-    // restarts the match without setup
-  }
+  const drag = new Drag(playerBoard);
 
   function gameOver(playerBoard, computerBoard) {
     if (playerBoard.checkGameOver()) {
@@ -50,6 +38,12 @@ function Game() {
     gameOver(playerBoard, computerBoard);
   }
 
+  function fleetChangeDirection() {
+    fleet.forEach((ship) => {
+      ship.changeDirection();
+    });
+  }
+
   function renderGameboards() {
     renderController().renderBoard(
       domElements.playerGameboard,
@@ -64,10 +58,20 @@ function Game() {
   }
 
   function renderShips() {
-    renderController().renderFleet(playerBoard.board);
-    renderController().renderFleet(computerBoard.board);
+    renderController().renderFleet(fleet);
+    Drag(playerBoard);
+    console.log(playerBoard);
   }
 
-  return { renderGameboards, renderShips, boardAttack };
+  // function computerPlaceShips() {
+  //fleet
+  // }
+
+  return {
+    renderGameboards,
+    renderShips,
+    boardAttack,
+    fleetChangeDirection,
+  };
 }
 export default Game;
