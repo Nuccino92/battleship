@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import fleet from "../modules/fleet";
+import { fleet } from "../modules/fleet";
 import Gameboard from "../modules/gameboard";
 import Player from "../modules/player";
 
