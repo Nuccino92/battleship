@@ -6,7 +6,8 @@ function Gameboard() {
   const board = new Array(10).fill(null).map(() => Array(10).fill(null));
   const getBoard = () => board;
 
-  function checkPossiblePlacement(ship, x, y) {
+  function checkPossiblePlacement(ship, x, y, board) {
+    let num = 0;
     // disallowing placements outside the board return false
     if (x < 0 || x > 9 || y < 0 || y > 9) {
       return false;
@@ -15,31 +16,39 @@ function Gameboard() {
     // if ship doesn't fit inside the board return false
     if (ship.direction === "horizontal") {
       if (y + ship.length > 10) return false;
+
+      for (let i = 0; i < ship.length; i += 1) {
+        if (board[x][y + i]) {
+          num += 1;
+        }
+      }
     }
 
     if (ship.direction === "vertical") {
       if (x + ship.length > 10) return false;
+
+      for (let i = 0; i < ship.length; i += 1) {
+        if (board[x + i][y] != null) {
+          num += 1;
+        }
+      }
     }
+
+    if (num > 0) return false;
     return true;
   }
 
   function placeShips(ship, x, y) {
     // return false if we can't pass the check
-    if (!checkPossiblePlacement(ship, x, y)) return false;
+    if (!checkPossiblePlacement(ship, x, y, board)) return false;
 
     if (ship.direction === "vertical") {
       for (let i = 0; i < ship.length; i += 1) {
-        if (this.board[x + i][y] != null) {
-          return false;
-        }
         this.board[x + i][y] = ship;
       }
     }
     if (ship.direction === "horizontal") {
       for (let i = 0; i < ship.length; i += 1) {
-        if (this.board[x][y + i] != null) {
-          return false;
-        }
         this.board[x][y + i] = ship;
       }
     }
