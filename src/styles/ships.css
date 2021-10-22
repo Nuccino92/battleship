@@ -1,0 +1,104 @@
+.ship-setup-container {
+  display: flex;
+  margin: 60px 0px 20px 0px;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.horizontal {
+  display: flex;
+  padding: 15px;
+}
+
+.ship-setup-container.horizontal {
+  display: block;
+  margin: 35px 0px 20px 18px;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.Carrier-container {
+  width: min-content;
+  height: min-content;
+}
+
+.Carrier-container > .ship-cell {
+  width: 3.1rem;
+  height: 3.1rem;
+  border: 2px solid rgb(93, 93, 93);
+  background-color: rgb(29, 29, 29);
+}
+
+.Battleship-container {
+  width: min-content;
+  height: min-content;
+}
+
+.Battleship-container > .ship-cell {
+  width: 3.1rem;
+  height: 3.1rem;
+  border: 2px solid rgb(93, 93, 93);
+  background-color: rgb(13, 13, 102);
+}
+
+.Cruiser-container {
+  width: min-content;
+  height: min-content;
+}
+
+.Cruiser-container > .ship-cell {
+  width: 3.1rem;
+  height: 3.1rem;
+  border: 2px solid rgb(93, 93, 93);
+  background-color: rgb(233, 80, 80);
+}
+
+.Submarine-container {
+  width: min-content;
+  height: min-content;
+}
+
+.Submarine-container > .ship-cell {
+  width: 3.1rem;
+  height: 3.1rem;
+  border: 2px solid rgb(93, 93, 93);
+  background-color: rgb(228, 202, 87);
+}
+
+.Destroyer-container {
+  width: min-content;
+  height: min-content;
+}
+
+.Destroyer-container > .ship-cell {
+  width: 3.1rem;
+  height: 3.1rem;
+  border: 2px solid rgb(93, 93, 93);
+  background-color: rgb(87, 228, 129);
+}
+
+/* classes added to the grid cells where ships have been placed */
+.Carrier {
+  border: 2px solid rgb(93, 93, 93);
+  background-color: rgb(29, 29, 29);
+}
+
+.Battleship {
+  border: 2px solid rgb(93, 93, 93);
+  background-color: rgb(13, 13, 102);
+}
+
+.Cruiser {
+  border: 2px solid rgb(93, 93, 93);
+  background-color: rgb(233, 80, 80);
+}
+
+.Submarine {
+  border: 2px solid rgb(93, 93, 93);
+  background-color: rgb(228, 202, 87);
+}
+
+.Destroyer {
+  border: 2px solid rgb(93, 93, 93);
+  background-color: rgb(87, 228, 129);
+}

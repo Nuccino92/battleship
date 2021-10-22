@@ -6,14 +6,12 @@
 
 .main > .computer-board {
   background-color: red;
-  display: grid;
   grid-template: repeat(10, 1fr) / repeat(10, 1fr);
-  box-sizing: content-box;
-  /* display: none; */
+  display: none;
 }
 
 .main > .computer-board.active {
-  display: initial;
+  display: grid;
 }
 
 .grid-cell {
@@ -22,9 +20,10 @@
   border: 1px solid black;
 }
 
-.setup-container {
-  width: 500px;
-  height: 500px;
-  border: 1px solid black;
-  display: none;
+.hit {
+  background-color: green;
+}
+
+.miss {
+  background-color: yellow;
 }
