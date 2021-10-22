@@ -2,10 +2,13 @@ import {
   domElements,
   toggleHorizontalClass,
 } from "./modules/displayController/domElements";
-
+import { fleet } from "./modules/fleet";
+import Gameboard from "./modules/gameboard";
 import Game from "./modules/gameLoop";
+
 import "./styles/main.css";
 
+const computerBoard = new Gameboard();
 const game = Game();
 
 game.renderGameboards();
@@ -31,9 +34,18 @@ domElements.rotateButton.addEventListener("click", () => {
   game.fleetChangeDirection();
 });
 
-function startGame() {
-  //starts game
-}
+document.querySelector(".start-button").addEventListener("click", () => {
+  domElements.setupContainer.classList.add("remove");
+  domElements.computerGameboard.classList.add("active");
+  game.start();
+  domElements.startButton.classList.remove("active");
+});
+
+domElements.playAgain.addEventListener("click", () => {
+  domElements.modalContainer.classList.remove("active");
+  game.restartGame();
+});
+
 function playAgain() {
   //restarts the game
 }

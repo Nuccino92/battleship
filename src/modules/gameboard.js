@@ -1,3 +1,5 @@
+import Ship from "./ship";
+
 function Gameboard() {
   const placedShips = [];
   const attackLog = [];
@@ -16,9 +18,9 @@ function Gameboard() {
     // if ship doesn't fit inside the board return false
     if (ship.direction === "horizontal") {
       if (y + ship.length > 10) return false;
-
+      //if any square along the ships path is not null end result is a false on possible replacement
       for (let i = 0; i < ship.length; i += 1) {
-        if (board[x][y + i]) {
+        if (board[x][y + i] != null) {
           num += 1;
         }
       }
@@ -53,14 +55,15 @@ function Gameboard() {
       }
     }
     // keeps track of the ships placed
-    return placedShips.push(ship);
+    return this.placedShips.push(ship);
   }
 
   function recieveAttack(x, y) {
     if (board[x][y] != null) {
       attackLog.push({ hit: { x, y } });
       // board[x][y] is the ship, runs hit function on the ship
-      this.board[x][y].hit();
+      console.log(this.board[x][y]);
+      this.board[x][y].hit(this.board[x][y]);
       this.board[x][y] = "hit";
     }
     if (board[x][y] === null) {
