@@ -1,25 +1,36 @@
 import { domElements } from "./displayController/domElements";
-import { ships } from "./fleet";
+import { createShips } from "./fleet";
 import renderController from "./displayController/renderController";
 import Gameboard from "./gameboard";
 import Player from "./player";
 import Drag from "./displayController/drag";
 
 function Game() {
-  const fleet = ships;
+  let playerFleet = createShips();
+  let cpuFleet = createShips();
 
   const player = Player("human");
   const computer = Player("computer");
 
-  const playerBoard = new Gameboard();
-  const computerBoard = new Gameboard();
+  let playerBoard = new Gameboard();
+  let computerBoard = new Gameboard();
+
+  function gameOver(playerBoard, computerBoard) {
+    if (playerBoard.checkGameOver() === true) {
+      domElements.modalContainer.classList.add("active");
+      domElements.winner.innerText = "You Lost";
+    }
+    if (computerBoard.checkGameOver() === true) {
+      domElements.modalContainer.classList.add("active");
+      domElements.winner.innerText = "You Win!";
+    }
+  }
 
   function boardAttack(e) {
     const cell = e.target;
     if (cell.id !== "computer") return;
     const { x } = cell.dataset;
     const { y } = cell.dataset;
-
     player.placeAttack(x, y, computerBoard);
 
     if (computerBoard.board[x][y] === "hit") {
@@ -38,26 +49,12 @@ function Game() {
       computer.player
     );
 
-    console.log(playerBoard.placedShips);
-    console.log(computerBoard.placedShips);
-
-    //checking if games over
-    // gameOver(playerBoard, computerBoard);
-
-    if (playerBoard.checkGameOver() === true) {
-      // domElements.modalContainer.classList.add("active");
-      domElements.modalContainer.textContent = "You Lost";
-      return console.log("lose");
-    }
-    if (computerBoard.checkGameOver() === true) {
-      // domElements.modalContainer.classList.add("active");
-      domElements.modalContainer.textContent = "You Win!";
-      return console.log("win");
-    }
+    // checking if games over
+    gameOver(playerBoard, computerBoard);
   }
 
   function fleetChangeDirection() {
-    fleet.forEach((ship) => {
+    playerFleet.forEach((ship) => {
       ship.changeDirection();
     });
   }
@@ -85,7 +82,7 @@ function Game() {
   }
 
   function autoPlaceShips() {
-    ships.forEach((ship) => {
+    cpuFleet.forEach((ship) => {
       const x = Math.round(Math.random() * 9);
       const y = Math.round(Math.random() * 9);
       const changeDirection = Math.random() > 0.5;
@@ -100,14 +97,33 @@ function Game() {
   }
 
   function renderShips() {
-    renderController().renderFleet(fleet);
-    Drag(playerBoard).dragEventListeners();
+    renderController().renderFleet(playerFleet);
+    Drag(playerBoard, playerFleet).dragEventListeners();
   }
 
   function restartGame() {
     domElements.setupContainer.classList.remove("remove");
     domElements.computerGameboard.classList.remove("active");
+    playerFleet = createShips();
+    cpuFleet = createShips();
+    playerBoard = new Gameboard();
+    computerBoard = new Gameboard();
+    renderGameboards();
+    renderShips();
+
+    const grid = document.querySelectorAll(".grid-cell");
+
+    grid.forEach((cell) =>
+      cell.addEventListener(
+        "click",
+        (e) => {
+          boardAttack(e);
+        },
+        { once: true }
+      )
+    );
   }
+
   return {
     renderGameboards,
     renderShips,
@@ -117,4 +133,5 @@ function Game() {
     restartGame,
   };
 }
+
 export default Game;
