@@ -1,12 +1,22 @@
 import Ship from "./ship";
 
-const Carrier = new Ship("Carrier", 5);
-const Battleship = new Ship("Battleship", 4);
-const Cruiser = new Ship("Cruiser", 3);
-const Submarine = new Ship("Submarine", 3);
-const Destroyer = new Ship("Destroyer", 2);
+const shipInfo = [
+  ["Carrier", 5],
+  ["Battleship", 4],
+  ["Cruiser", 3],
+  ["Submarine", 3],
+  ["Destroyer", 2],
+];
 
-// eslint-disable-next-line import/prefer-default-export
+const createShips = () => {
+  const shipArray = [];
+  shipInfo.forEach((ship) => {
+    shipArray.push(Ship(ship[0], ship[1]));
+  });
+  return shipArray;
+};
+
+// fleet used mainly for the testing
 function fleet() {
   const Carrier = () => new Ship("Carrier", 5);
 
@@ -21,11 +31,9 @@ function fleet() {
   return { Carrier, Battleship, Cruiser, Submarine, Destroyer };
 }
 
-const ships = [Carrier, Battleship, Cruiser, Submarine, Destroyer];
-
-function matchShip(name) {
+function matchShip(playerFleet, name) {
   let matchedShip;
-  ships.forEach((ship) => {
+  playerFleet.forEach((ship) => {
     if (ship.name === name) {
       matchedShip = ship;
     }
@@ -33,4 +41,4 @@ function matchShip(name) {
   return matchedShip;
 }
 
-export { fleet, ships, matchShip };
+export { fleet, createShips, matchShip };
