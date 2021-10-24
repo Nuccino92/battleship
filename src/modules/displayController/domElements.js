@@ -8,17 +8,15 @@ export const domElements = {
   shipCell: document.querySelector(".ship-cell"),
   startButton: document.querySelector(".start-button"),
   modalContainer: document.querySelector(".modal-container"),
+  modal: document.querySelector(".modal"),
   playAgain: document.querySelector(".play-again"),
+  winner: document.querySelector(".display-winner"),
 };
 
 export function toggleHorizontalClass() {
-  document.querySelector(".Carrier-container").classList.toggle("horizontal");
-  document
-    .querySelector(".Battleship-container")
-    .classList.toggle("horizontal");
-  document.querySelector(".Cruiser-container").classList.toggle("horizontal");
-  document.querySelector(".Submarine-container").classList.toggle("horizontal");
-  document.querySelector(".Destroyer-container").classList.toggle("horizontal");
+  domElements.shipSetupContainer.childNodes.forEach((node) => {
+    node.classList.toggle("horizontal");
+  });
   document
     .querySelector(".ship-setup-container")
     .classList.toggle("horizontal");
