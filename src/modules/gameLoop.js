@@ -28,29 +28,41 @@ function Game() {
 
   function boardAttack(e) {
     const cell = e.target;
+
     if (cell.id !== "computer") return;
     const { x } = cell.dataset;
     const { y } = cell.dataset;
+
+    function compAttack() {
+      const rand = Math.round(Math.random() * (2000 - 500)) + 500;
+      setTimeout(() => {
+        computer.randomAttack(playerBoard);
+        renderController().renderBoard(
+          domElements.playerGameboard,
+          playerBoard,
+          computer.player
+        );
+
+        // checking if games over
+        gameOver(playerBoard, computerBoard);
+        domElements.blocker.classList.remove("active");
+      }, rand);
+    }
+
     player.placeAttack(x, y, computerBoard);
 
-    if (computerBoard.board[x][y] === "hit") {
-      e.target.classList.add("hit");
+    if (player.placeAttack) {
+      if (computerBoard.board[x][y] === "hit") {
+        e.target.classList.add("hit");
+      }
+
+      if (computerBoard.board[x][y] === "miss") {
+        e.target.classList.add("miss");
+      }
+      gameOver(playerBoard, computerBoard);
+      domElements.blocker.classList.add("active");
+      compAttack();
     }
-
-    if (computerBoard.board[x][y] === "miss") {
-      e.target.classList.add("miss");
-    }
-
-    computer.randomAttack(playerBoard);
-
-    renderController().renderBoard(
-      domElements.playerGameboard,
-      playerBoard,
-      computer.player
-    );
-
-    // checking if games over
-    gameOver(playerBoard, computerBoard);
   }
 
   function fleetChangeDirection() {
