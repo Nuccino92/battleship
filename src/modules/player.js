@@ -15,7 +15,7 @@ function Player(type) {
 
   function placeAttack(x, y, board) {
     if (player === "human") {
-      board.recieveAttack(x, y);
+      board.recieveAttack(x, y, player);
     }
     if (player === "computer") {
       randomAttack();
