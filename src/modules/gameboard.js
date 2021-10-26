@@ -1,4 +1,4 @@
-import Ship from "./ship";
+import { chatBoxController } from "./displayController/domElements";
 
 function Gameboard() {
   const placedShips = [];
@@ -58,16 +58,18 @@ function Gameboard() {
     return this.placedShips.push(ship);
   }
 
-  function recieveAttack(x, y) {
+  function recieveAttack(x, y, player) {
     if (board[x][y] != null) {
       attackLog.push({ hit: { x, y } });
+
       // board[x][y] is the ship, runs hit function on the ship
-      console.log(this.board[x][y]);
-      this.board[x][y].hit(this.board[x][y]);
+      this.board[x][y].hit();
+      chatBoxController(this.board[x][y], player);
       this.board[x][y] = "hit";
     }
     if (board[x][y] === null) {
       attackLog.push({ miss: { x, y } });
+      chatBoxController(this.board[x][y], player);
       this.board[x][y] = "miss";
     }
   }
