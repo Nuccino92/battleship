@@ -1,4 +1,8 @@
-import { domElements } from "./displayController/domElements";
+import {
+  chatBoxController,
+  domElements,
+  restartDOMManipulation,
+} from "./displayController/domElements";
 import { createShips } from "./fleet";
 import renderController from "./displayController/renderController";
 import Gameboard from "./gameboard";
@@ -34,7 +38,7 @@ function Game() {
     const { y } = cell.dataset;
 
     function compAttack() {
-      const rand = Math.round(Math.random() * (2000 - 500)) + 500;
+      const rand = Math.round(Math.random() * (2000 - 500)) + 1000;
       setTimeout(() => {
         computer.randomAttack(playerBoard);
         renderController().renderBoard(
@@ -46,9 +50,10 @@ function Game() {
         // checking if games over
         gameOver(playerBoard, computerBoard);
         domElements.blocker.classList.remove("active");
+        domElements.computerGameboard.style.border = "3px solid red";
+        domElements.playerGameboard.style.border = "3px solid white";
       }, rand);
     }
-
     player.placeAttack(x, y, computerBoard);
 
     if (player.placeAttack) {
@@ -61,8 +66,24 @@ function Game() {
       }
       gameOver(playerBoard, computerBoard);
       domElements.blocker.classList.add("active");
+      domElements.playerGameboard.style.border = "3px solid red";
+      domElements.computerGameboard.style.border = "3px solid white";
       compAttack();
     }
+  }
+
+  function gridListener() {
+    const grid = document.querySelectorAll(".grid-cell");
+
+    grid.forEach((cell) =>
+      cell.addEventListener(
+        "click",
+        (e) => {
+          boardAttack(e);
+        },
+        { once: true }
+      )
+    );
   }
 
   function fleetChangeDirection() {
@@ -114,26 +135,14 @@ function Game() {
   }
 
   function restartGame() {
-    domElements.setupContainer.classList.remove("remove");
-    domElements.computerGameboard.classList.remove("active");
+    restartDOMManipulation();
     playerFleet = createShips();
     cpuFleet = createShips();
     playerBoard = new Gameboard();
     computerBoard = new Gameboard();
     renderGameboards();
     renderShips();
-
-    const grid = document.querySelectorAll(".grid-cell");
-
-    grid.forEach((cell) =>
-      cell.addEventListener(
-        "click",
-        (e) => {
-          boardAttack(e);
-        },
-        { once: true }
-      )
-    );
+    gridListener();
   }
 
   return {
@@ -143,6 +152,7 @@ function Game() {
     fleetChangeDirection,
     start,
     restartGame,
+    gridListener,
   };
 }
 
