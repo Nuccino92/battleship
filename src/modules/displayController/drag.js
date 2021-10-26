@@ -7,22 +7,42 @@ function Drag(playerBoard, playerFleet) {
   function dragEventListeners() {
     const ships = document.querySelectorAll(".ship");
     const cells = document.querySelectorAll(".grid-cell");
+    const { crosshairX } = domElements;
+    const { crosshairY } = domElements;
 
     ships.forEach((ship) => ship.addEventListener("dragstart", dragStart));
     cells.forEach((cell) => cell.addEventListener("dragover", dragOver));
     cells.forEach((cell) => cell.addEventListener("dragenter", dragEnter));
     cells.forEach((cell) => cell.addEventListener("drop", dragDrop));
 
+    ships.forEach((ship) => ship.addEventListener("drag", drag));
+
     ships.forEach((ship) =>
       ship.addEventListener("mousedown", (e) => {
-        // eslint-disable-next-line no-use-before-define
         selectedShipNameWithIndex = e.target;
       })
     );
+
+    ships.forEach((ship) =>
+      ship.addEventListener("dragend", (e) => {
+        e.target.style.transform = "scale(1)";
+      })
+    );
+    domElements.computerGameboard.addEventListener("mousemove", (e) => {
+      (crosshairX.style.left = e.clientX + "px"),
+        (crosshairX.style.top = e.clientY + "px");
+      (crosshairY.style.left = e.clientX + "px"),
+        (crosshairY.style.top = e.clientY + "px");
+    });
   }
 
   let selectedShipNameWithIndex;
   let draggedShip;
+
+  function drag(e) {
+    draggedShip = e.target;
+    draggedShip.style.transform = "scale(0)";
+  }
 
   function dragStart(e) {
     draggedShip = e.target;
