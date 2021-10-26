@@ -1,16 +1,56 @@
 .main > .player-board {
-  background-color: blue;
+  background-color: rgba(24, 35, 44, 0.5);
   display: grid;
   grid-template: repeat(10, 1fr) / repeat(10, 1fr);
+  border: 3px solid white;
+  margin-right: 20px;
+  margin-left: -200px;
 }
 
-.main > .computer-board {
-  background-color: red;
-  grid-template: repeat(10, 1fr) / repeat(10, 1fr);
+.main > .player-board.transform {
+  /* transition: all 600ms ease-out; */
+  transform: scale(0.75);
+  animation: playerBoard 0.77s linear;
+}
+
+@keyframes playerBoard {
+  0% {
+    margin-right: 20px;
+    transform: scale(1);
+  }
+  50% {
+    margin-right: 20px;
+    transform: scale(0.75);
+  }
+  100% {
+    margin-right: 20px;
+    transform: scale(0.75);
+  }
+}
+
+.blocker {
+  border: 3px solid rgb(214, 29, 29);
+  width: max-content;
+  height: max-content;
+  z-index: 19;
   display: none;
 }
 
+.blocker.active {
+  display: none;
+}
+
+.main > .computer-board {
+  background-color: rgba(24, 35, 44, 0.5);
+  grid-template: repeat(10, 1fr) / repeat(10, 1fr);
+  display: none;
+  border: 3px solid red;
+  cursor: none;
+}
+
 .main > .computer-board.active {
+  transition: all 600ms ease-out;
+  transform: scale(1);
   display: grid;
 }
 
@@ -26,4 +66,34 @@
 
 .miss {
   background-color: yellow;
+}
+
+.crosshairX {
+  display: none;
+  position: fixed;
+  transform: translateX(-50%) translateY(-50%);
+  pointer-events: none;
+  width: 7%;
+  z-index: 1111;
+  transition: all 0ms ease-out;
+  border: 3px dashed rgb(90, 189, 60);
+}
+
+.crosshairX.active {
+  display: initial;
+}
+
+.crosshairY {
+  display: none;
+  position: fixed;
+  transform: translateX(-50%) translateY(-50%) rotate(90deg);
+  pointer-events: none;
+  width: 7%;
+  z-index: 1111;
+  transition: all 0ms ease-out;
+  border: 3px dashed rgb(90, 189, 60);
+}
+
+.crosshairY.active {
+  display: initial;
 }
