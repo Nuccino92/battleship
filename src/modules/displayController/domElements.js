@@ -7,11 +7,11 @@ export const domElements = {
   rotateButton: document.querySelector(".rotate-ships"),
   shipCell: document.querySelector(".ship-cell"),
   startButton: document.querySelector(".start-button"),
+  startButtonContainer: document.querySelector(".start-button-container"),
   modalContainer: document.querySelector(".modal-container"),
   modal: document.querySelector(".modal"),
   playAgain: document.querySelector(".play-again"),
   winner: document.querySelector(".display-winner"),
-  blocker: document.querySelector(".blocker"),
   crosshairX: document.querySelector(".crosshairX"),
   crosshairY: document.querySelector(".crosshairY"),
   chatContainer: document.querySelector(".chat-container"),
@@ -23,7 +23,7 @@ export const domElements = {
 export function startDOMManipulation() {
   domElements.setupContainer.classList.add("remove");
   domElements.computerGameboard.classList.add("active");
-  domElements.startButton.classList.remove("active");
+  domElements.startButtonContainer.classList.remove("active");
   domElements.shipSetupContainer.classList.remove("horizontal");
   domElements.playerGameboard.classList.toggle("transform");
   domElements.crosshairX.classList.add("active");
@@ -53,40 +53,51 @@ export function toggleHorizontalClass() {
 
 function resetAnimation() {
   const text = domElements.chatText;
+  const container = domElements.chatContainer;
   text.style.animation = "none";
   text.offsetHeight;
   text.style.animation = null;
+  container.style.animation = "none";
+  container.offsetHeight;
+  container.style.animation = null;
 }
 
 export function chatBoxController(location, player) {
   resetAnimation();
   const text = domElements.chatText;
+  const container = domElements.chatContainer;
 
   function playerHits() {
     text.textContent = "You hit a ship!";
     text.style.animation = "printing 1s steps(40, end)";
+    container.style.animation = "hit 1s linear";
   }
   function playerMissed() {
     text.textContent = "You missed.";
     text.style.animation = "printing 1s steps(40, end)";
+    container.style.animation = "miss 1s linear";
   }
 
   function computerShipSunk() {
     text.textContent = "You Sunk a Ship!";
     text.style.animation = "printing 1s steps(40, end)";
+    container.style.animation = "sunk 2s linear";
   }
 
   function computerHits() {
     text.textContent = "You were Hit!";
     text.style.animation = "printing 1s steps(40, end)";
+    container.style.animation = "hit 1s linear";
   }
   function computerMissed() {
     text.textContent = "They missed.";
     text.style.animation = "printing 1s steps(40, end)";
+    container.style.animation = "miss 1s linear";
   }
   function playerShipSunk() {
     text.textContent = "They sunk a Ship!";
-    text.style.animation = "printing 1s steps(40, end)";
+    text.style.animation = "sunk 1s steps(40, end)";
+    container.style.animation = "sunk 2s linear";
   }
 
   if (location === "reset") {
@@ -106,4 +117,9 @@ export function chatBoxController(location, player) {
     } else if (location.isShipSunk === true) playerShipSunk();
     else computerHits();
   }
+}
+
+// toggles click event blocker every turn
+export function toggleClickBlocker() {
+  domElements.computerGameboard.classList.toggle("blocker");
 }
