@@ -2,7 +2,6 @@ import {
   domElements,
   toggleHorizontalClass,
   startDOMManipulation,
-  chatBoxController,
 } from "./modules/displayController/domElements";
 import Game from "./modules/gameLoop";
 import "./styles/main.css";
@@ -23,6 +22,7 @@ domElements.rotateButton.addEventListener("click", () => {
 
 // start button listener
 document.querySelector(".start-button").addEventListener("click", () => {
+  game.resetEvent();
   game.start();
   startDOMManipulation();
 });
@@ -30,20 +30,5 @@ document.querySelector(".start-button").addEventListener("click", () => {
 // replay button listener
 domElements.playAgain.addEventListener("click", () => {
   game.restartGame();
+  game.resetEvent();
 });
-
-// reset round button listener
-domElements.resetButton.addEventListener(
-  "click",
-  (e) => {
-    chatBoxController("reset");
-    setTimeout(
-      () => {
-        game.restartGame();
-      },
-      3000,
-      { once: false }
-    );
-  },
-  { once: true }
-);
