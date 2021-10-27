@@ -2,6 +2,7 @@ import {
   chatBoxController,
   domElements,
   restartDOMManipulation,
+  toggleClickBlocker,
 } from "./displayController/domElements";
 import { createShips } from "./fleet";
 import renderController from "./displayController/renderController";
@@ -23,11 +24,14 @@ function Game() {
     if (playerBoard.checkGameOver() === true) {
       domElements.modalContainer.classList.add("active");
       domElements.winner.innerText = "You Lost";
+      return true;
     }
     if (computerBoard.checkGameOver() === true) {
       domElements.modalContainer.classList.add("active");
       domElements.winner.innerText = "You Win!";
+      return true;
     }
+    return false;
   }
 
   function boardAttack(e) {
@@ -48,10 +52,10 @@ function Game() {
         );
 
         // checking if games over
-        gameOver(playerBoard, computerBoard);
-        domElements.blocker.classList.remove("active");
+        if (gameOver(playerBoard, computerBoard) === true) return;
         domElements.computerGameboard.style.border = "3px solid red";
         domElements.playerGameboard.style.border = "3px solid white";
+        toggleClickBlocker();
       }, rand);
     }
     player.placeAttack(x, y, computerBoard);
@@ -64,8 +68,8 @@ function Game() {
       if (computerBoard.board[x][y] === "miss") {
         e.target.classList.add("miss");
       }
-      gameOver(playerBoard, computerBoard);
-      domElements.blocker.classList.add("active");
+      if (gameOver(playerBoard, computerBoard) === true) return;
+      toggleClickBlocker();
       domElements.playerGameboard.style.border = "3px solid red";
       domElements.computerGameboard.style.border = "3px solid white";
       compAttack();
@@ -135,7 +139,6 @@ function Game() {
   }
 
   function restartGame() {
-    restartDOMManipulation();
     playerFleet = createShips();
     cpuFleet = createShips();
     playerBoard = new Gameboard();
@@ -143,6 +146,21 @@ function Game() {
     renderGameboards();
     renderShips();
     gridListener();
+    restartDOMManipulation();
+  }
+
+  // reset round button listener
+  function resetEvent() {
+    domElements.resetButton.addEventListener(
+      "click",
+      () => {
+        chatBoxController("reset");
+        setTimeout(() => {
+          restartGame();
+        }, 3000);
+      },
+      { once: true }
+    );
   }
 
   return {
@@ -153,6 +171,7 @@ function Game() {
     start,
     restartGame,
     gridListener,
+    resetEvent,
   };
 }
 
