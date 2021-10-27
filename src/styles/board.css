@@ -4,13 +4,14 @@
   grid-template: repeat(10, 1fr) / repeat(10, 1fr);
   border: 3px solid white;
   margin-right: 20px;
-  margin-left: -200px;
+  margin-left: -100px;
 }
 
 .main > .player-board.transform {
-  /* transition: all 600ms ease-out; */
   transform: scale(0.75);
   animation: playerBoard 0.77s linear;
+  margin-right: 20px;
+  margin-left: -200px;
 }
 
 @keyframes playerBoard {
@@ -28,18 +29,6 @@
   }
 }
 
-.blocker {
-  border: 3px solid rgb(214, 29, 29);
-  width: max-content;
-  height: max-content;
-  z-index: 19;
-  display: none;
-}
-
-.blocker.active {
-  display: none;
-}
-
 .main > .computer-board {
   background-color: rgba(24, 35, 44, 0.5);
   grid-template: repeat(10, 1fr) / repeat(10, 1fr);
@@ -54,6 +43,11 @@
   display: grid;
 }
 
+/* blocks the click event when its not the players turn */
+.blocker:active {
+  pointer-events: none;
+}
+
 .grid-cell {
   width: 3.1rem;
   height: 3.1rem;
@@ -61,11 +55,13 @@
 }
 
 .hit {
-  background-color: green;
+  background-color: rgb(214, 42, 42);
+  border: 1px solid red;
 }
 
 .miss {
-  background-color: yellow;
+  background-color: rgb(46, 13, 235);
+  border: 1px solid rgb(0, 3, 160);
 }
 
 .crosshairX {
