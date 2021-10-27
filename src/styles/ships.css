@@ -1,26 +1,19 @@
 .ship-setup-container {
+  position: fixed;
   display: flex;
-  margin: 60px 0px 20px 0px;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
+  margin: 20px 0px 0px 35px;
 }
 
-.ship-setup-container > div {
-  transform: scale(0.8);
-}
-
-.ship-setup-container > div:hover {
-  transform: scale(1);
+.ship {
+  padding: 6px;
 }
 
 .horizontal {
   display: flex;
-  padding: 15px;
 }
 
 .ship-setup-container.horizontal {
   display: block;
-  margin: 35px 0px 20px 18px;
   justify-content: space-evenly;
   flex-wrap: wrap;
 }
