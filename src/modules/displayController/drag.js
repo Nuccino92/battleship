@@ -84,7 +84,7 @@ function Drag(playerBoard, playerFleet) {
       // checks if all the 5 ships have been placed
       if (playerBoard.placedShips.length === 5) {
         domElements.setupContainer.classList.add("remove");
-        domElements.startButton.classList.add("active");
+        domElements.startButtonContainer.classList.add("active");
       }
     }
   }
