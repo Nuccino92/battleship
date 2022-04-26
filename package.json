@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest --watch",
     "start": "webpack serve --open",
-    "dev": "npm-run-all start test"
+    "dev": "npm-run-all start test",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
